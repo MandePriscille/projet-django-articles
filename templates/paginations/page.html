@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'boostrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'boostrap/css/bootstrap.min.js' %}">
+
+    
+</head>
+<body>
+    <h1>Pagination avec Django</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-inverse table-responsive">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>id</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Author</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th>Published</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in page_obj %}
+                            <tr>
+                                <td scope="row">{{ item.id}}</td>
+                                <td>{{item.title}}</td>
+                                <td>{{item.content}}</td>
+                                <td>{{item.author}}</td>
+                                <td>{{item.created_at}}</td>
+                                <td>{{item.updated_at}}</td>
+                                <td>{{item.published}}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+           <div class="col-md-8">
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+
+                </div>
+           </div>
+        </div>
+        
+    </div>
+   
+</body>
+</html>
